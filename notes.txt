@@ -4,6 +4,8 @@ kubectl run curl-tudor --image=radial/busyboxplus:curl -i --tty --rm -n kube-log
 curl -k http://elasticsearch:9200
 curl -k http://elasticsearch.kube-logging:9200
 curl http://demo:8080/actuator
+curl http://elasticsearch.kube-logging:9200/logstash-2021.11.28?pretty
+curl http://elasticsearch.kube-logging:9200/logstash-2021.11.28/_search?pretty
 
 
 https://spring.io/guides/gs/spring-boot-kubernetes/
