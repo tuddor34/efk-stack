@@ -1,3 +1,18 @@
+https://www.studytonight.com/post/efk-stack-setup-elasticsearch-fluentbit-and-kibana-for-kubernetes-log-management
+
+kubectl run curl-tudor --image=radial/busyboxplus:curl -i --tty --rm -n kube-logging
 curl -k http://elasticsearch:9200
 curl -k http://elasticsearch.kube-logging:9200
-kubectl run curl-tudor --image=radial/busyboxplus:curl -i --tty --rm -n kube-logging
+curl http://demo:8080/actuator
+
+
+https://spring.io/guides/gs/spring-boot-kubernetes/
+./mvnw spring-boot:build-image
+docker run -p 8080:8080 demo:0.0.1-SNAPSHOT
+curl localhost:8080/actuator/health
+
+kind load docker-image demo:0.0.1-SNAPSHOT
+
+
+
+
