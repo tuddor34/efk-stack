@@ -12,6 +12,18 @@ curl -X POST "http://elasticsearch.kube-logging:9200/logstash-2021.11.29/_search
     "_source": ["log", "@timestamp", "kubernetes.pod_name", "kubernetes.namespace_name", "kubernetes.container_name"]
 }
 '
+curl -X GET "http://elasticsearch.kube-logging:9200/logstash-2021.11.29/_search?pretty&size=1000
+" -H 'Content-Type: application/json' -d'
+{
+  "query": {
+    "match": {
+      "kubernetes.pod_name": "es-cluster-*"
+    }
+  },
+  "_source": ["log", "@timestamp", "kubernetes.pod_name", "kubernetes.namespace_name", "kubernetes.container_name"]
+}
+'
+
 
 
 https://spring.io/guides/gs/spring-boot-kubernetes/
