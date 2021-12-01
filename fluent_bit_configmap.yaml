@@ -25,8 +25,8 @@ data:
   input-kubernetes.conf: |
     [INPUT]
         Name              tail
-        Tag               kube.*
-        Path              /var/log/containers/*.log
+        Tag               kube.apps1.*
+        Path              /var/log/containers/*apps1*.log
         Parser            crio
         DB                /var/log/flb_kube.db
         Mem_Buf_Limit     5MB
@@ -36,7 +36,7 @@ data:
   filter-kubernetes.conf: |
     [FILTER]
         Name                kubernetes
-        Match               kube.*
+        Match               kube.apps1.*
         Kube_URL            https://kubernetes.default.svc:443
         Kube_CA_File        /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
         Kube_Token_File     /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -49,10 +49,11 @@ data:
   output-elasticsearch.conf: |
     [OUTPUT]
         Name            es
-        Match           *
+        Match           kube.apps1.*
         Host            ${FLUENT_ELASTICSEARCH_HOST}
         Port            ${FLUENT_ELASTICSEARCH_PORT}
         Logstash_Format On
+        Logstash_Prefix apps1
         Replace_Dots    On
         Retry_Limit     False
 
