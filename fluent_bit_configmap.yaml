@@ -25,14 +25,13 @@ data:
   input-kubernetes.conf: |
     [INPUT]
         Name              tail
-        Tag               kube.<namespace_name>.<container_name>.<pod_name>.<docker_id>-
-        Tag_Regex         (?<pod_name>[a-z0-9](?:[-a-z0-9]*[a-z0-9])?(?:\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*)_(?<namespace_name>[^_]+)_(?<container_name>.+)-(?<docker_id>[a-z0-9]{64})\.log$
+        Tag               kube.*
         Path              /var/log/containers/*.log
-        Parser            crio
+        Parser            docker
         DB                /var/log/flb_kube.db
-        Mem_Buf_Limit     100MB
+        Mem_Buf_Limit     5MB
         Skip_Long_Lines   On
-        Refresh_Interval  5
+        Refresh_Interval  10
 
   filter-kubernetes.conf: |
     [FILTER]
@@ -103,10 +102,4 @@ data:
         Regex       ^\<(?<pri>[0-9]+)\>(?<time>[^ ]* {1,2}[^ ]* [^ ]*) (?<host>[^ ]*) (?<ident>[a-zA-Z0-9_\/\.\-]*)(?:\[(?<pid>[0-9]+)\])?(?:[^\:]*\:)? *(?<message>.*)$
         Time_Key    time
         Time_Format %b %d %H:%M:%S
-        
-    [PARSER]
-        Name        crio
-        Format      regex
-        Regex       ^(?<time>[^ ]+) (?<stream>stdout|stderr) (?<logtag>[^ ]*) (?<log>.*)$
-        Time_Key    time
-        Time_Format %Y-%m-%dT%H:%M:%S.%L%z  
+
