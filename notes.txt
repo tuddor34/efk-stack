@@ -1,4 +1,5 @@
 https://www.studytonight.com/post/efk-stack-setup-elasticsearch-fluentbit-and-kibana-for-kubernetes-log-management
+https://stackoverflow.com/questions/65610806/fluentbit-configmap-logs-distribution-as-per-namespace
 
 kubectl run curl-tudor --image=radial/busyboxplus:curl -i --tty --rm -n kube-logging
 curl -k http://elasticsearch:9200
